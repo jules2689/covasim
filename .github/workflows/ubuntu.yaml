@@ -16,7 +16,7 @@ jobs:
         run: print("::set-env name=GITHUB_OWNER::{}".format('${{github.repository}}'.split('/')[0]))
       - name: Set egg cache env variable
         shell: python
-        run: print("::set-env name=PYTHON_EGG_CACHE::~/.cache/pip")
+        run: print("::set-env name=PYTHON_EGG_CACHE::~/.cache/pip/eggs")
       - name: Checkout sources
         uses: actions/checkout@v1
       # - name: Checkout synthpops
@@ -39,11 +39,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.python-version }}-pip-with-eggs-
       # Pip install first will make setup.py much faster and the cache will make pip install fast
-      - name: pip install
-        if: steps.cache-pip.outputs.cache-hit != 'true'
-        run: pip install -r requirements.txt
       - name: Install Covasim
-        run: python setup.py develop
+        run: |
+          mkdir -p ~/.cache/pip/eggs
+          python setup.py develop
       # - name: Install synthpops
       #   working-directory: ./synthpops
       #   run: python setup.py develop
