@@ -5,6 +5,8 @@ Covasim is a stochastic agent-based simulator designed to be used for COVID-19
 indicators such as numbers of infections and peak hospital demand. Covasim can
 also be used to explore the potential impact of different interventions.
 
+test cache
+
 
 ## Requirements
 
