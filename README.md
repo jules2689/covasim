@@ -6,6 +6,8 @@ indicators such as numbers of infections and peak hospital demand. Covasim can
 also be used to explore the potential impact of different interventions.
 
 
+
+ttest
 ## Requirements
 
 Python >=3.6 (64-bit). (Note: Python 2 is not supported.)
