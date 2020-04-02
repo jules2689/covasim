@@ -35,6 +35,15 @@ jobs:
           key: ${{ runner.os }}_${{ matrix.python-version }}_pip_${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}_${{ matrix.python-version }}_pip_
+      - name: Cache site-packages
+        id: cache-site-packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.pythonLocation }}/lib/python${{ matrix.python-version }}/site-packages
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}_${{ matrix.python-version }}_site-packages_${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}_${{ matrix.python-version }}_site-packages_
       - name: debug
         run: ls ~/.cache/pip
       - name: debug2
