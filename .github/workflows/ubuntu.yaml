@@ -33,8 +33,15 @@ jobs:
           # Look to see if there is a cache hit for the corresponding requirements file
           key: ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-pip-
-              ${{ runner.os }}-
+            ${{ runner.os }}-site-packages-
+      - name: Cache site packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.pythonLocation }}/x64/lib/python${{ matrix.python-version }}/site-packages
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-${{ matrix.python-version }}-site-packages-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-site-packages-
       - name: Install Covasim
         run: python setup.py develop
       # - name: Install synthpops
