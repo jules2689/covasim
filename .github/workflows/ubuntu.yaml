@@ -37,6 +37,8 @@ jobs:
             ${{ runner.os }}_${{ matrix.python-version }}_pip_
       - name: debug
         run: ls ~/.cache/pip
+      - name: debug2
+        run: ls ~/.cache/pip/wheels
       # Pip install first will make setup.py much faster and the cache will make pip install fast
       - name: pip install
         if: steps.cache-pip.outputs.cache-hit != 'true'
