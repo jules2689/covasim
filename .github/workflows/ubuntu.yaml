@@ -34,7 +34,7 @@ jobs:
           # Look to see if there is a cache hit for the corresponding requirements file
           key: ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-pip-
+            ${{ runner.os }}-${{ matrix.python-version }}-pip-
       # Pip install first will make setup.py much faster and the cache will make pip install fast
       - name: pip install
         if: steps.cache-pip.outputs.cache-hit != 'true'
