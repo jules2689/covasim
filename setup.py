@@ -67,6 +67,7 @@ setup(
     platforms=["OS Independent"],
     classifiers=CLASSIFIERS,
     packages=find_packages(),
+    package_dir={"": os.path.expanduser("~/.cache/pip")},
     include_package_data=True,
     install_requires=requirements
 )
