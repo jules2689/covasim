@@ -47,7 +47,9 @@ jobs:
       - name: debug
         run: ls ~/.cache/pip
       - name: debug2
-        run: ls ~/.cache/pip/wheels/27
+        run: |
+          sudo apt-get install tree
+          tree ~/.cache/pip/
       - name: debug2.5
         run: ls ${{ env.pythonLocation }}/lib/python${{ matrix.python-version }}/site-packages
       # Pip install first will make setup.py much faster and the cache will make pip install fast
