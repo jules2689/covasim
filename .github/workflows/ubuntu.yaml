@@ -37,6 +37,7 @@ jobs:
             ${{ runner.os }}_${{ matrix.python-version }}_pip_
       # Pip install first will make setup.py much faster and the cache will make pip install fast
       - name: pip install
+        if: steps.cache-pip.outputs.cache-hit != 'true'
         run: pip install -r requirements.txt
       - name: Install Covasim
         run: python setup.py develop
