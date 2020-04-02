@@ -40,10 +40,13 @@ jobs:
       # - name: Install synthpops
       #   working-directory: ./synthpops
       #   run: python setup.py develop
-      - name: Run tests
+      - name: Install Pytest
         working-directory: ./tests
         run: |
           pip install pytest
+      - name: Run tests
+        working-directory: ./tests
+        run: |
           # pytest test*.py unittests/test*.py --junitxml=test-results.xml # Run actual tests
           pytest test*.py --junitxml=test-results.xml # Run actual tests
       - name: Run examples
