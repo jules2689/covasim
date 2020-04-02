@@ -48,6 +48,10 @@ jobs:
       # - name: Install synthpops
       #   working-directory: ./synthpops
       #   run: python setup.py develop
+      - name: debug3
+        run: ls ~/.cache/pip
+      - name: debug4
+        run: ls ~/.cache/pip/wheels
       - name: Run tests
         working-directory: ./tests
         run: |
