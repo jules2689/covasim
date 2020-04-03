@@ -14,9 +14,6 @@ jobs:
       - name: Set repo owner env variable
         shell: python
         run: print("::set-env name=GITHUB_OWNER::{}".format('${{github.repository}}'.split('/')[0]))
-      - name: Set egg cache env variable
-        shell: python
-        run: print("::set-env name=PYTHON_EGG_CACHE::~/.cache/pip/eggs")
       - name: Checkout sources
         uses: actions/checkout@v1
       # - name: Checkout synthpops
@@ -29,29 +26,22 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-      - name: Cache pip with eggs
+      - name: Cache Packages
         id: cache-pip
         uses: actions/cache@v1
         with:
           path: ~/.cache/pip # This path is specific to Ubuntu
           # Look to see if there is a cache hit for the corresponding requirements file
-          key: ${{ runner.os }}-${{ matrix.python-version }}-pip-with-eggs-${{ hashFiles('requirements.txt') }}
+          key: ${{ runner.os }}-${{ matrix.python-version }}-setup-tools-${{ hashFiles('requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.python-version }}-pip-with-eggs-
+            ${{ runner.os }}-${{ matrix.python-version }}-setup-tools-
       # Pip install first will make setup.py much faster and the cache will make pip install fast
       - name: Install Covasim
         run: |
-          mkdir -p ~/.cache/pip/eggs
-          python setup.py develop
+          python setup.py develop --install-dir ~/.cache/pip
       # - name: Install synthpops
       #   working-directory: ./synthpops
       #   run: python setup.py develop
-      - name: debug3
-        run: ls ~/.cache/pip
-      - name: debug4
-        run: ls ~/.cache/pip/eggs
-      - name: debug5
-        run: ls ${{ env.pythonLocation }}/lib/python${{ matrix.python-version }}/site-packages
       - name: Run tests
         working-directory: ./tests
         run: |
