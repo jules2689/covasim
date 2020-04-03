@@ -49,9 +49,11 @@ jobs:
       - name: Run tests
         working-directory: ./tests
         run: |
-          pip install pytest --target=~/.cache/site-packages
+          pip install pytest
+          sudo apt-get install tree
+          tree ~/.cache/site-packages
           # pytest test*.py unittests/test*.py --junitxml=test-results.xml # Run actual tests
-          python -m pytest test*.py --junitxml=test-results.xml # Run actual tests
+          pytest test*.py --junitxml=test-results.xml # Run actual tests
       - name: Run examples
         working-directory: ./examples
         run: python *.py
