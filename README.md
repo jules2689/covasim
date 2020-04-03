@@ -24,6 +24,7 @@ sim.run()
 sim.plot()
 ```
 
+test the cache
 
 ## Detailed installation instructions
 
