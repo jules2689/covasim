@@ -15,7 +15,9 @@ jobs:
         shell: python
         run: print("::set-env name=GITHUB_OWNER::{}".format('${{github.repository}}'.split('/')[0]))
       - name: Set repo owner env variable
-        run: echo "::set-env name=PYTHONPATH::/home/runner/.cache/site-packages"
+        run: |
+          mkdir -p $HOME/.cache/site-packages
+          echo "::set-env name=PYTHONPATH::$HOME/.cache/site-packages"
       - name: Checkout sources
         uses: actions/checkout@v1
       # - name: Checkout synthpops
