@@ -24,6 +24,7 @@ sim.run()
 sim.plot()
 ```
 
+test me
 
 ## Detailed installation instructions
 
