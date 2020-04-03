@@ -49,7 +49,7 @@ jobs:
       - name: Run tests
         working-directory: ./tests
         run: |
-          pip install pytest
+          pip install pytest --target=~/.cache/site-packages
           sudo apt-get install tree
           tree ~/.cache/site-packages
           # pytest test*.py unittests/test*.py --junitxml=test-results.xml # Run actual tests
