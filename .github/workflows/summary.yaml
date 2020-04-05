@@ -1,0 +1,66 @@
+name: Covasim Summary workflow
+on: [pull_request]
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        python-version: ['3.7']
+    name: Install and test
+    steps:
+      - name: Set repo owner env variable
+        shell: python
+        run: print("::set-env name=GITHUB_OWNER::{}".format('${{github.repository}}'.split('/')[0]))
+      - name: Set PYTHONPATH
+        run: |
+          mkdir -p $HOME/.cache/site-packages
+          echo "::set-env name=PYTHONPATH::$HOME/.cache/site-packages"
+      - name: Checkout sources
+        uses: actions/checkout@v1
+      - uses: actions/setup-python@master
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - name: Cache Packages
+        id: cache-packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/ # This path is specific to Ubuntu
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: packages-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            packages-${{ runner.os }}-${{ matrix.python-version }}-
+      # Pip install first will make setup.py much faster and the cache will make pip install fast
+      - name: Install Covasim
+        run: |
+          python setup.py develop --install-dir ~/.cache/site-packages
+      # - name: Install synthpops
+      #   working-directory: ./synthpops
+      #   run: python setup.py develop
+      - name: Run Sim
+        run: |
+          python examples/run_sim.py
+      - name: Set ENV Vars for Comment
+        id: comment-setup
+        run: python .github/workflows/support/diff.py
+      - name: Create Change comment
+        uses: jules2689/create-or-update-comment@973adabe1b4a99dc04d6a2e3c0aa7262da043eb3
+        if: steps.comment-setup.outputs.JSON_OUTPUT != ''
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          replace-new-line: true
+          body: |
+            Summary of this Run:
+            ```diff
+            ${{ steps.comment-setup.outputs.JSON_OUTPUT }}
+            ```
+      - name: Create No-Change comment
+        uses: jules2689/create-or-update-comment@973adabe1b4a99dc04d6a2e3c0aa7262da043eb3
+        if: steps.comment-setup.outputs.JSON_OUTPUT == ''
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          replace-new-line: true
+          body: There was _no change_ in to the summary output by Covasim in this PR.
