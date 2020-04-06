@@ -1,5 +1,5 @@
 {
- "n_susceptible": 883.0,
+ "n_susceptible": 1883.0,
  "n_exposed": 0.0,
  "n_infectious": 0.0,
  "n_symptomatic": 0.0,
@@ -13,7 +13,7 @@
  "new_diagnoses": 0.0,
  "cum_diagnoses": 0.0,
  "new_recoveries": 0.0,
- "cum_recoveries": 18930.0,
+ "cum_recoveries": 1930.0,
  "new_symptomatic": 0.0,
  "cum_symptomatic": 12702.0,
  "new_severe": 0.0,
