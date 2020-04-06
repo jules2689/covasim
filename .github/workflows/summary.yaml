@@ -52,7 +52,7 @@ jobs:
         id: comment-setup
         run: python .github/workflows/support/diff.py
       - name: Create Change comment
-        uses: jules2689/create-or-update-comment@a714935ea3df88e4e25b7beee18047baf08d6db6
+        uses: jules2689/create-or-update-comment@1c0a8214ea8134fbbe7601c8a2377b83a53c1a4d
         if: steps.comment-setup.outputs.JSON_OUTPUT != ''
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -64,7 +64,7 @@ jobs:
             ${{ steps.comment-setup.outputs.JSON_OUTPUT }}
             ```
       - name: Create No-Change comment
-        uses: jules2689/create-or-update-comment@a714935ea3df88e4e25b7beee18047baf08d6db6
+        uses: jules2689/create-or-update-comment@1c0a8214ea8134fbbe7601c8a2377b83a53c1a4d
         if: steps.comment-setup.outputs.JSON_OUTPUT == ''
         with:
           issue-number: ${{ github.event.pull_request.number }}
