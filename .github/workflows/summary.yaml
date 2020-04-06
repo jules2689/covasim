@@ -71,4 +71,4 @@ jobs:
           replace-new-line: true
           comment-hash: 'summary_comment'
           body: |
-            There was _no change_ in to the summary output by Covasim in this PR.
+            There was no change in to the summary output by Covasim in this PR.
