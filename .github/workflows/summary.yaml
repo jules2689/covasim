@@ -41,6 +41,8 @@ jobs:
       #   working-directory: ./synthpops
       #   run: python setup.py develop
       - name: Run Sim
+        env:
+          USE_POP_DATA: 0
         run: |
           python examples/run_sim.py
       - name: Set ENV Vars for Comment
