@@ -58,6 +58,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           replace-new-line: true
           comment-hash: 'summary_comment'
+          edit-mode: 'replace'
           body: |
             Summary of this Run:
             ```diff
@@ -70,5 +71,6 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           replace-new-line: true
           comment-hash: 'summary_comment'
+          edit-mode: 'replace'
           body: |
             There was no change in to the summary output by Covasim in this PR.
