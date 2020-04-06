@@ -62,5 +62,5 @@ if do_plot:
 if do_summary:
     summary = sim.summary_stats(verbose=1)
     f = open(summary_path, "w")
-    f.write(json.dumps(summary, indent=2, separators=(',', ': ')))
+    f.write(json.dumps(summary, indent=2, separators=(',', ': ')) + '\n')
     f.close()
