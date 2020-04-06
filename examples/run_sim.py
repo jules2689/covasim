@@ -13,11 +13,11 @@ import covasim as cv
 print('Configuring...')
 
 # Run options
-do_plot = 1
-do_save = 1
+do_plot = int(os.environ.get('DO_PLOT') or '1')
+do_save = int(os.environ.get('DO_SAVE') or '1')
 do_show = 0
-do_summary = 1
-verbose = 1
+do_summary = int(os.environ.get('DO_SUMMARY') or '1')
+verbose = int(os.environ.get('VERBOSE') or '1')
 interv  = 0
 
 # Set filename if saving
@@ -29,7 +29,7 @@ fig_path = f'{basename}.png'
 summary_path = f'{basename}.json'
 
 # Configure the sim -- can also just use a normal dictionary
-use_pop_data = s.environ.get('USE_POP_DATA') or 1
+use_pop_data = os.environ.get('USE_POP_DATA') or 1
 use_pop_data = int(use_pop_data)
 
 pars = sc.objdict(

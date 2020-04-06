@@ -43,6 +43,9 @@ jobs:
       - name: Run Sim
         env:
           USE_POP_DATA: 0
+          DO_PLOT: 1
+          DO_SAVE: 1
+          DO_SUMMARY: 1
         run: |
           python examples/run_sim.py
       - name: Set ENV Vars for Comment
