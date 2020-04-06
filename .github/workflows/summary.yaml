@@ -60,10 +60,19 @@ jobs:
           comment-hash: 'summary_comment'
           edit-mode: 'replace'
           body: |
-            Summary of this Run:
+            This diff can help review this change.
+            While unit tests and running simulations can help us validate nothing obvious has broken, the stochastic
+            nature of this model means that we can't explicitly test. This summary will help experts understand if we need to take a closer look.
+
+            <details>
+              <summary>Summary of this Run</summary>
+
             ```diff
             ${{ steps.comment-setup.outputs.JSON_OUTPUT }}
             ```
+            
+            </details>
+
       - name: Create No-Change comment
         uses: jules2689/create-or-update-comment@acdf43d78d9100bbd1aa20960136760d1c463be4
         if: steps.comment-setup.outputs.JSON_OUTPUT == ''
