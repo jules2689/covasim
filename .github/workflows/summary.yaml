@@ -9,7 +9,7 @@ jobs:
       max-parallel: 8
       matrix:
         python-version: ['3.7']
-    name: Install and test
+    name: Run and Summarize
     steps:
       - name: Set repo owner env variable
         shell: python
@@ -52,7 +52,7 @@ jobs:
         id: comment-setup
         run: python .github/workflows/support/diff.py
       - name: Create Change comment
-        uses: jules2689/create-or-update-comment@dd12aafcd6359609cabb78a48170ba6d441975f6
+        uses: jules2689/create-or-update-comment@acdf43d78d9100bbd1aa20960136760d1c463be4
         if: steps.comment-setup.outputs.JSON_OUTPUT != ''
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -64,7 +64,7 @@ jobs:
             ${{ steps.comment-setup.outputs.JSON_OUTPUT }}
             ```
       - name: Create No-Change comment
-        uses: jules2689/create-or-update-comment@dd12aafcd6359609cabb78a48170ba6d441975f6
+        uses: jules2689/create-or-update-comment@acdf43d78d9100bbd1aa20960136760d1c463be4
         if: steps.comment-setup.outputs.JSON_OUTPUT == ''
         with:
           issue-number: ${{ github.event.pull_request.number }}
