@@ -52,20 +52,23 @@ jobs:
         id: comment-setup
         run: python .github/workflows/support/diff.py
       - name: Create Change comment
-        uses: jules2689/create-or-update-comment@973adabe1b4a99dc04d6a2e3c0aa7262da043eb3
+        uses: jules2689/create-or-update-comment@2a7c92b70b410fbf1a162a25a9db5f5d0c13c1cc
         if: steps.comment-setup.outputs.JSON_OUTPUT != ''
         with:
           issue-number: ${{ github.event.pull_request.number }}
           replace-new-line: true
+          comment-hash: 'summary_comment'
           body: |
             Summary of this Run:
             ```diff
             ${{ steps.comment-setup.outputs.JSON_OUTPUT }}
             ```
       - name: Create No-Change comment
-        uses: jules2689/create-or-update-comment@973adabe1b4a99dc04d6a2e3c0aa7262da043eb3
+        uses: jules2689/create-or-update-comment@2a7c92b70b410fbf1a162a25a9db5f5d0c13c1cc
         if: steps.comment-setup.outputs.JSON_OUTPUT == ''
         with:
           issue-number: ${{ github.event.pull_request.number }}
           replace-new-line: true
-          body: There was _no change_ in to the summary output by Covasim in this PR.
+          comment-hash: 'summary_comment'
+          body: |
+            There was _no change_ in to the summary output by Covasim in this PR.
