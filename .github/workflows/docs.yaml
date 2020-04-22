@@ -25,6 +25,11 @@ jobs:
         run: |
           mkdir -p $HOME/.cache/site-packages
           echo "::set-env name=PYTHONPATH::$HOME/.cache/site-packages"
+      - name: Setup SSH
+        run: |
+          # Setup deploy key
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${{ secrets.DOCS_DEPLOY_KEY }}"
       - name: Checkout Docs Repo
         uses: actions/checkout@v2
         with:
@@ -68,10 +73,6 @@ jobs:
             git config --local user.name "GitHub Action"
             git add --all .
             git commit -m "Update Docs"
-            
-            # Setup deploy key
-            eval "$(ssh-agent -s)"
-            ssh-add - <<< "${{ secrets.DOCS_DEPLOY_KEY }}"
 
             # Deploy
             remote_repo="git@github.com:${{ env.GITHUB_OWNER }}/covasim-docs.git"
