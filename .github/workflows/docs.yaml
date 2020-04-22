@@ -7,7 +7,6 @@ on:
 jobs:
   docs:
     runs-on: ubuntu-latest
-    if: github.repository == 'InstituteforDiseaseModeling/covasim'
     strategy:
       fail-fast: false
       max-parallel: 8
